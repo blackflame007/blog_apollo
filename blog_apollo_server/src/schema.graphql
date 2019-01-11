@@ -1,0 +1,39 @@
+scalar DateTime
+scalar Upload
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  messages: [Message!]!
+}
+
+type Query {
+  info: String!
+  feed: [Message!]!
+  message(id: ID!): Message
+}
+
+type Mutation {
+  post(title: String!, description: String!): Message!
+
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+
+  updateMessage(id: ID!, url: String, description: String): Message
+
+  deleteMessage(id: ID!): Message
+}
+
+type Message {
+  id: ID!
+  title: String!
+  description: String!
+  createdAt: DateTime!
+  postedBy: User
+}
